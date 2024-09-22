@@ -30,6 +30,7 @@ function finalJobAfterTransaction(formId, action){
 
         document.getElementById(formId).reset();
         document.getElementById("success-dialog").classList.remove("hidden");
+        uploadData(action);
         setTimeout(function(){
             document.getElementById("success-dialog").classList.remove("opacity-0");
         }, 100);
