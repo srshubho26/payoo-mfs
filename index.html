@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Payoo MFS</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button{
+            -webkit-appearance: none;
+        }
+    </style>
+</head>
+<body class="font-mono">
+    <div id="success-dialog" class="w-full transition duration-200 h-screen fixed top-0 left-0 bg-[#13131357] z-10 hidden opacity-0 px-3">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg px-3">
+            <div class="bg-white border-2 border-[#0875f2b1] rounded-xl py-8 text-center">
+                <img class="mx-auto border-4 border-[#0874F2] p-3 rounded-full w-24" src="img/logo.png">
+                <h3 class="my-4 text-4xl text-[#0874F2] font-black">Success</h3>
+                <button id="success-dialog-remover" class="px-8 py-1 rounded-lg bg-[#0874F2] text-white text-3xl">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <main class="flex justify-center items-center min-h-screen">
+        <div class="hero">
+            <div class="card overflow-y-auto w-full">
+                <div class="flex w-full justify-between items-center max-w-xl mx-auto pt-8 px-2">
+                    <div class="flex gap-1 sm:gap-2 items-center">
+                        <img class="max-w-10 sm:max-w-16" src="img/logo.png" alt="">
+                        <div>
+                            <h4 class="text-xl sm:text-3xl font-extrabold text-[#080808E6]">$<span id="current-balance">45000</span></h4>
+                            <p class="text-[#08080880] sm:mt-2 text-sm sm:text-xl font-medium">Available Balance</p>
+                        </div>
+                    </div>
+
+                    <button id="logout-btn" class="flex rounded-lg gap-1 sm:gap-3 items-center px-2 sm:px-3 py-2 border border-stone-400 hover:border-red-400">
+                        <img class="w-6" src="./img/logout.png">
+                        <span class="text-sm sm:text-xl text-[#08080880] font-bold">Log Out</span>
+                    </button>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="max-w-xl mx-auto px-2">
+                    <h3 class="text-2xl sm:text-4xl font-extrabold text-[#080808E6]">🔥Welcome to Payooo!</h3>
+                    <p class="text-[#08080875] mt-2 sm:mt-4 text-base font-semibold">Enjoy easy and convenient financial services with us. Cashout charge is low.</p>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 justify-between my-10 gap-4 max-w-xl mx-auto w-full px-2">
+                    <button id="add-money-btn" class="text-center border border-stone-300 text-[#080808B3] text-base font-bold rounded-xl py-5 hover:border-blue-500 hover:text-blue-500 hover:bg-[#0874F20D] transition">
+                        <img class="mx-auto mb-3 w-6" src="./img/addMoney.png">
+                        <span>Add Money</span>
+                    </button>
+                    <button id="cashout-btn" class="text-center border border-stone-300 text-[#080808B3] text-base font-bold rounded-xl py-5 hover:border-blue-500 hover:text-blue-500 hover:bg-[#0874F20D] transition">
+                        <img class="mx-auto mb-3 w-6" src="./img/cashout.png">
+                        <span>Cashout</span>
+                    </button>
+                    <button id="transfer-btn" class="text-center border border-stone-300 text-[#080808B3] text-base font-bold rounded-xl py-5 hover:border-blue-500 hover:text-blue-500 hover:bg-[#0874F20D] transition">
+                        <img class="mx-auto mb-3 w-6" src="./img/transfer.png">
+                        <span>Transfer Money</span>
+                    </button>
+                    <button id="get-bonus-btn" class="text-center border border-stone-300 text-[#080808B3] text-base font-bold rounded-xl py-5 hover:border-blue-500 hover:text-blue-500 hover:bg-[#0874F20D] transition">
+                        <img class="mx-auto mb-3 w-6" src="./img/bonus.png">
+                        <span>Get Bonus</span>
+                    </button>
+                    <button id="pay-bill-btn" class="text-center border border-stone-300 text-[#080808B3] text-base font-bold rounded-xl py-5 hover:border-blue-500 hover:text-blue-500 hover:bg-[#0874F20D] transition">
+                        <img class="mx-auto mb-3 w-6" src="./img/pay.png">
+                        <span>Pay Bill</span>
+                    </button>
+                    <button id="transaction-btn" class="text-center border border-stone-300 text-[#080808B3] text-base font-bold rounded-xl py-5 hover:border-blue-500 hover:text-blue-500 hover:bg-[#0874F20D] transition">
+                        <img class="mx-auto mb-3 w-6" src="./img/transaction.png">
+                        <span>Transactions</span>
+                    </button>
+                </div>
+
+                <div class="bg-[#F4F5F7]">
+                    <div id="latest-payments" class="max-w-xl mx-auto w-full item">
+                        <div class="flex justify-between ">
+                            <h4 class="text-3xl font-extrabold text-[#080808E6]">Latest Payment</h4>
+    
+                            <button class="text-xl text-[#0808086c] font-bold">
+                                View All
+                            </button>
+                        </div>
+
+                        <div id="latest-payment-list">
+                            
+                        </div>
+                    </div>
+
+                    <div id="transaction-history" class="relative min-h-screen py-5 max-w-xl mx-auto hidden item">
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-2">
+                            <h4 class="text-3xl font-extrabold text-[#080808E6]">Transaction History</h4>
+
+                            <div id="transaction-history-list"></div>
+                        </div>
+                    </div>
+
+                    <div id="add-money" class="relative min-h-screen max-w-xl mx-auto py-10 hidden item">
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-2">
+                            <h4 class="text-3xl font-extrabold text-[#080808E6] mb-5">Add Money</h4>
+
+                            <form id="add-money-form" class="card-body p-5 sm:p-8 bg-base-100 shadow-2xl rounded-3xl">
+                                <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-base font-semibold text-[#080808]">Select A Bank</span>
+                                </label>
+                                <select id="select-bank" class="input rounded-full bg-[#F4F5F7] bg-[url(./img/down.png)] bg-no-repeat bg-[right_16px_center] text-base">
+                                    <option value="">Select Bank</option>
+                                    <option value="agrani_bank">Agrani Bank</option>
+                                    <option value="ab_bank">AB Bank</option>
+                                    <option value="brack_bank">Brack Bank</option>
+                                    <option value="sonali_bank">Sonali Bank</option>
+                                    <option value="krishi_bank">Krishi Bank</option>
+                                </select>
+                                </div>
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text text-base font-semibold text-[#080808]">Bank Account Number</span>
+                                    </label>
+                                    <input id="bank-ac-no" type="number" placeholder="Enter 11 digit account number" class="input rounded-full bg-[#F4F5F7] text-base" required autocomplete="off" />
+                                </div>
+
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text text-base font-semibold text-[#080808]">Amount To Add</span>
+                                    </label>
+                                    <input id="add-amount" type="number" placeholder="Enter amount to add" class="input rounded-full bg-[#F4F5F7] text-base" required autocomplete="off" />
+                                </div>
+
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text text-base font-semibold text-[#080808]">4 Digit Pin</span>
+                                    </label>
+                                    <input id="pin-number" type="password" placeholder="Enter 4 Digit Pin" class="input rounded-full bg-[#F4F5F7] text-base" required autocomplete="off" />
+                                </div>
+
+                                <div class="form-control mt-3">
+                                <button type="submit" class="btn bg-blue-600 text-xl text-white rounded-full">Add Money</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="cashout" class="relative min-h-screen max-w-xl mx-auto py-10 hidden item">
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-2">
+                            <h4 class="text-3xl font-extrabold text-[#080808E6] mb-5">Cashout</h4>
+
+                            <form id="cashout-form" class="card-body p-5 sm:p-8 bg-base-100 shadow-2xl rounded-3xl">
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text text-base font-semibold text-[#080808]">Agent Number</span>
+                                    </label>
+                                    <input id="agent-no" type="number" placeholder="Enter 11 digit number" class="input rounded-full bg-[#F4F5F7] text-base" required autocomplete="off" />
+                                </div>
+
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text text-base font-semibold text-[#080808]">Amount</span>
+                                    </label>
+                                    <input id="cashout-amount" type="number" placeholder="Enter amount to withdraw" class="input rounded-full bg-[#F4F5F7] text-base" required autocomplete="off" />
+                                </div>
+
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text text-base font-semibold text-[#080808]">4 Digit Pin</span>
+                                    </label>
+                                    <input id="cashout-pin" type="password" placeholder="Enter 4 Digit Pin" class="input rounded-full bg-[#F4F5F7] text-base" required autocomplete="off" />
+                                </div>
+
+                                <div class="form-control mt-3">
+                                <button type="submit" class="btn bg-blue-600 text-xl text-white rounded-full">Withdraw Money</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="transfer" class="relative min-h-screen max-w-xl mx-auto py-10 hidden item">
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-2">
+                            <h4 class="text-3xl font-extrabold text-[#080808E6] mb-5">Transfer Money</h4>
+
+                            <form id="transfer-money-form" class="card-body p-5 sm:p-8 bg-base-100 shadow-2xl rounded-3xl">
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text text-base font-semibold text-[#080808]">User Account Number</span>
+                                    </label>
+                                    <input id="user-ac-no" type="number" placeholder="Enter 11 digit account number" class="input rounded-full bg-[#F4F5F7] text-base" required autocomplete="off" />
+                                </div>
+
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text text-base font-semibold text-[#080808]">Amount</span>
+                                    </label>
+                                    <input id="transfer-amount" type="number" placeholder="Enter amount to transfer" class="input rounded-full bg-[#F4F5F7] text-base" required autocomplete="off" />
+                                </div>
+
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text text-base font-semibold text-[#080808]">4 Digit Pin</span>
+                                    </label>
+                                    <input id="transfer-pin" type="password" placeholder="Enter 4 Digit Pin" class="input rounded-full bg-[#F4F5F7] text-base" required autocomplete="off" />
+                                </div>
+
+                                <div class="form-control mt-3">
+                                <button type="submit" class="btn bg-blue-600 text-xl text-white rounded-full">Withdraw Money</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="get-bonus" class="relative max-w-xl min-h-screen mx-auto py-10 hidden item">
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-2">
+                            <h4 class="text-3xl font-extrabold text-[#080808E6] mb-5">Get Bonus</h4>
+
+                            <form id="get-bonus-form" class="card-body p-5 sm:p-8 bg-base-100 shadow-2xl rounded-3xl">
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text text-base font-semibold text-[#080808]">Enter Bonus Coupon</span>
+                                    </label>
+                                    <input id="coupon-code" type="text" placeholder="Enter your coupon" class="input rounded-full bg-[#F4F5F7] text-base" required autocomplete="off" />
+
+                                    <input type="hidden" value="1234" id="get-bonus-pin">
+                                </div>
+
+                                <div class="form-control mt-3">
+                                <button type="submit" class="btn bg-blue-600 text-xl text-white rounded-full">Get Bonus</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="pay-bill" class="relative max-w-xl min-h-screen mx-auto py-10 hidden item">
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-2">
+                            <h4 class="text-3xl font-extrabold text-[#080808E6] mb-5">Pay Bill</h4>
+
+                            <form id="pay-bill-form" class="card-body p-5 sm:p-8 bg-base-100 shadow-2xl rounded-3xl">
+                                <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text text-base font-semibold text-[#080808]">Select Bill Type</span>
+                                </label>
+                                <select id="pay-bill-type" class="input rounded-full bg-[#F4F5F7] bg-[url(./img/down.png)] bg-no-repeat bg-[right_16px_center] text-base">
+                                    <option value="">Select Type</option>
+                                    <option value="Gas Bill">Gas Bill</option>
+                                    <option value="Electricity Bill">Electricity Bill</option>
+                                    <option value="Internet Bill">Internet Bill</option>
+                                    <option value="Dish Bill">Dish Bill</option>
+                                    <option value="Water Bill">Water Bill</option>
+                                </select>
+                                </div>
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text text-base font-semibold text-[#080808]">Biller Account Number</span>
+                                    </label>
+                                    <input id="biller-ac-no" type="number" placeholder="Enter 11 digit account number" class="input rounded-full bg-[#F4F5F7] text-base" required autocomplete="off" />
+                                </div>
+
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text text-base font-semibold text-[#080808]">Amount To Pay</span>
+                                    </label>
+                                    <input id="amount-to-pay" type="number" placeholder="Amount to pay" class="input rounded-full bg-[#F4F5F7] text-base" required autocomplete="off" />
+                                </div>
+
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text text-base font-semibold text-[#080808]">Pin Number</span>
+                                    </label>
+                                    <input id="pay-bill-pin" type="password" placeholder="Enter 4 Digit Pin" class="input rounded-full bg-[#F4F5F7] text-base" required autocomplete="off" />
+                                </div>
+
+                                <div class="form-control mt-3">
+                                <button type="submit" class="btn bg-blue-600 text-xl text-white rounded-full">Add Money</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="./js/utility.js"></script>
+    <script src="./js/home.js"></script>
+</body>
+</html>
