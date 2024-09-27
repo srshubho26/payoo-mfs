@@ -7,8 +7,7 @@ window.onload = ()=>{
 }
 
 //Logout functionality
-document.getElementById("logout-btn").addEventListener("click", function(event){
-    event.preventDefault();
+document.getElementById("logout-btn").addEventListener("click", function(){
     const isConfirmed = confirm("Do you want to logout?");
 
     if(isConfirmed){
@@ -18,19 +17,14 @@ document.getElementById("logout-btn").addEventListener("click", function(event){
 });
 
 document.getElementById("success-dialog-remover").addEventListener("click", function(){
-    document.getElementById("success-dialog").classList.add("opacity-0");
-    setTimeout(function(){
-        document.getElementById("success-dialog").classList.add("hidden");
-    }, 100);
+    const dialogClassList = document.getElementById("success-dialog").classList;
+    dialogClassList.add("opacity-0");
+    setTimeout(() => dialogClassList.add("hidden"), 100);
 })
 
 //Showing single items when a user clicks a specific menu
 function actionInit(btn, itemId){
-    document.getElementById(btn).addEventListener("click", function(event){
-        event.preventDefault();
-
-        navigate(btn, itemId);
-    })
+    document.getElementById(btn).addEventListener("click", ()=>navigate(btn, itemId))
 }
 
 actionInit("transaction-btn", "transaction-history");
@@ -39,6 +33,10 @@ actionInit("cashout-btn", "cashout");
 actionInit("transfer-btn", "transfer");
 actionInit("get-bonus-btn", "get-bonus");
 actionInit("pay-bill-btn", "pay-bill");
+
+document.getElementById("view-transaction").addEventListener("click", function(){
+    navigate("transaction-btn", "transaction-history");
+})
 
 //Callback for add money
 function addMoneyOrPayBill(bankName, bankAc, amountOfMoney, isPayBill){

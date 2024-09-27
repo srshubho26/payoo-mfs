@@ -23,11 +23,16 @@ function finalJobAfterTransaction(formId, action){
     if(isConfirmed){
         navigate(null, "");
         const div = createRecord(action);
+        removeEmptyMsg("empty-transaction");
         document.getElementById("transaction-history-list").prepend(div);
         
-        // if(action.type==='red'){
-        //     document.getElementById("latest-payment-list").prepend(div);
-        // }
+        if(action.type==='red'){
+            removeEmptyMsg("empty-latest-payment");
+            const paymentList = document.getElementById("latest-payment-list");
+            if(paymentList.childElementCount>4)return;
+            const newDiv = div.cloneNode(true);
+            paymentList.prepend(newDiv);
+        }
 
         document.getElementById(formId).reset();
         document.getElementById("success-dialog").classList.remove("hidden");
@@ -37,6 +42,11 @@ function finalJobAfterTransaction(formId, action){
     }
 }
 
+
+function removeEmptyMsg(id){
+    const el = document.getElementById(id);
+    el && el.remove();
+}
 
 function createRecord(action){
     const {balance, title, thumb, amount, type} = action;
