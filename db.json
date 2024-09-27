@@ -1,9 +1,0 @@
-[
-    {
-        "balance": "amount",
-        "title": "Add Money",
-        "thumb": "addMoney",
-        "type": "green",
-        "amount": "1000"
-    }
-]

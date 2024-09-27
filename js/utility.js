@@ -24,13 +24,13 @@ function finalJobAfterTransaction(formId, action){
         navigate(null, "");
         const div = createRecord(action);
         document.getElementById("transaction-history-list").prepend(div);
-        if(action.type==='red'){
-            document.getElementById("latest-payment-list").prepend(div);
-        }
+        
+        // if(action.type==='red'){
+        //     document.getElementById("latest-payment-list").prepend(div);
+        // }
 
         document.getElementById(formId).reset();
         document.getElementById("success-dialog").classList.remove("hidden");
-        uploadData(action);
         setTimeout(function(){
             document.getElementById("success-dialog").classList.remove("opacity-0");
         }, 100);
