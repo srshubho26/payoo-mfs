@@ -2,7 +2,7 @@
 window.onload = ()=>{
     const isLoggedIn = localStorage.getItem("isLoggedIn");
     if(!isLoggedIn){
-        window.location.href = "login.html";
+        window.location.href = "/login.html";
     }
 }
 
