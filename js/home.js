@@ -2,7 +2,7 @@
 window.onload = ()=>{
     const isLoggedIn = localStorage.getItem("isLoggedIn");
     if(!isLoggedIn){
-        window.location.href = "/login.html";
+        window.location.href = "/payoo-mfs/login.html";
     }
 }
 
@@ -12,7 +12,7 @@ document.getElementById("logout-btn").addEventListener("click", function(){
 
     if(isConfirmed){
         localStorage.removeItem("isLoggedIn");
-        window.location.href = "/login.html";
+        window.location.href = "/payoo-mfs/login.html";
     }
 });
 
